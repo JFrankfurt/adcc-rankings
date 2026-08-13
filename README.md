@@ -8,9 +8,10 @@ result, method, and the ±elo change it produced.
 ## Layout
 
 ```
-ingest/          pull raw event data from Smoothcomp (needs a browser session)
-  discover.mjs   list ADCC-tenant events from the public past-events listing
-  pull.mjs       pull one event -> data/events/<id>/
+ingest/          pull raw event data from Smoothcomp (headless browser)
+  discover.mjs        list ADCC-tenant events from the public past-events listing
+  browser_pull.mjs    pull events via headless Playwright (no cookies)
+  backfill_participants.mjs  fetch participant rosters (reg_id -> user_id)
 pipeline/        turn raw events into the app's data
   lib/normalize.mjs   parse both bracket renderers, adult filter, identity join
   lib/glicko.mjs      per-match Glicko-2 (records before/after -> ±elo)
@@ -23,12 +24,12 @@ data/events/<id>/    staged raw pulls (brackets.json, participants.json, render/
 
 ```bash
 cd web
-npm install
-npm run data     # rebuild web/public/data/data.json from data/events/*
-npm run dev      # http://localhost:3000
+pnpm install
+pnpm run data     # rebuild web/public/data/data.json from data/events/*
+pnpm run dev      # http://localhost:3000
 ```
 
-The page loads one static JSON file — no server/database needed. `npm run build`
+The page loads one static JSON file — no server/database needed. `pnpm run build`
 produces a fully static export.
 
 ## Ingest events (no cookies, no login)
@@ -43,7 +44,7 @@ identity is resolved from `getRenderData`'s `profile_link` + name matching.)
 
 One-time setup:
 ```bash
-npm install                        # root deps (Playwright)
+pnpm install                        # root deps (Playwright)
 npx playwright install chromium
 ```
 
@@ -60,7 +61,7 @@ ever needs a human click). `FORCE=1` re-pulls events already on disk.
 
 ## Running it live + keeping data fresh
 
-The app is **pure static** — `npm run build` emits `web/out/` (HTML + JS + one
+The app is **pure static** — `pnpm run build` emits `web/out/` (HTML + JS + one
 `data/data.json`), no server, nothing to "revalidate". Host `web/out/` anywhere:
 drag to Netlify, `vercel deploy web/out`, GitHub Pages, or `npx serve web/out`.
 
@@ -84,7 +85,7 @@ Ubuntu runner image crashes npm ("Exit handler never called") on install.
 
 ### Scheduled (macOS launchd)
 
-A weekly job (Sundays 03:00) runs `refresh.sh` automatically:
+A weekly job (Mondays 11:00) runs `refresh.sh` automatically:
 
 ```bash
 # already installed at ~/Library/LaunchAgents/com.jfrankfurt.adcc-rankings.plist

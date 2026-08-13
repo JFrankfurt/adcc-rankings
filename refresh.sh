@@ -16,6 +16,12 @@ node ingest/browser_pull.mjs all 20
 echo "[2/3] building ranking data…"
 node pipeline/build.mjs
 
+echo "[2.5/3] (optional) local static export via pnpm…"
+# CI rebuilds Pages, so a local export is not required; keep it as a smoke check.
+( cd web && corepack pnpm install --no-frozen-lockfile >/dev/null 2>&1 && \
+  BASE_PATH=/adcc-rankings corepack pnpm run build >/dev/null 2>&1 && \
+  echo "local export ok -> web/out/" ) || echo "local export skipped (CI will build)"
+
 echo "[3/3] publishing data.json…"
 # Commit + push only the ranking data; GitHub Actions rebuilds & deploys Pages.
 # (Local static export is optional now that CI does it; skip to keep runs fast.)

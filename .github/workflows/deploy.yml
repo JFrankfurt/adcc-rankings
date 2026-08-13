@@ -28,11 +28,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Enable pnpm via corepack (runner npm crashes on this image)
-        run: |
-          corepack enable
-          corepack prepare pnpm@9.15.0 --activate
-          pnpm --version
+      # pnpm, not npm: the runner's bundled npm crashes on install
+      # ("Exit handler never called!"). Version comes from packageManager.
+      - name: Enable pnpm via corepack
+        run: corepack enable
       - name: Install deps
         working-directory: web
         run: pnpm install --no-frozen-lockfile

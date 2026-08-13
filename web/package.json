@@ -18,5 +18,12 @@
     "@types/node": "^22.10.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0"
-  }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [],
+    "ignoredBuiltDependencies": [
+      "sharp"
+    ]
+  },
+  "packageManager": "pnpm@9.15.0"
 }
