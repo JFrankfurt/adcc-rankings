@@ -12,7 +12,7 @@
 // A persistent profile is kept so Cloudflare clearance is reused across runs.
 // Env: HEADLESS=0 to watch the browser (default headless — it clears CF fine).
 import { chromium } from "playwright";
-import { mkdirSync, writeFileSync, existsSync, readdirSync } from "node:fs";
+import { mkdirSync, writeFileSync, existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { discoverAdcc } from "./discover.mjs";
@@ -21,6 +21,11 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PROFILE = join(ROOT, ".auth/sc-profile");   // gitignored: holds the session
 const HEADLESS = process.env.HEADLESS !== "0"; // headless by default; it clears CF
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Events behind a hard Cloudflare block the automated browser cannot clear.
+// Skipped in `all` runs so they do not cost a 5-min timeout each.
+let SKIP = {};
+try { SKIP = JSON.parse(readFileSync(join(ROOT, "ingest/skip-events.json"), "utf8")); } catch {}
 
 // Poll an event's public JSON until Cloudflare has cleared (status 200).
 async function waitForClearance(page, base, tries = 20) {
@@ -160,7 +165,10 @@ if (cmd === "login") {
 } else {
   const ctx = await open();
   if (cmd === "all") {
-    const adcc = await discoverAdcc();
+    const adcc = (await discoverAdcc()).filter((e) => {
+      if (SKIP[e.id]) { console.log(`event ${e.id}: skip-listed (${SKIP[e.id]})`); return false; }
+      return true;
+    });
     console.log(`pulling ${adcc.length} ADCC events…`);
     for (const e of adcc) { try { await pullEvent(ctx, e.id, e.tenant, e.name); } catch (err) { console.error(`event ${e.id} FAILED: ${err.message}`); } }
   } else if (cmd) {
