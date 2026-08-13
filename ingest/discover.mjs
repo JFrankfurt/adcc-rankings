@@ -20,25 +20,30 @@ export async function discoverAdcc() {
     headless: process.env.HEADLESS !== "0", viewport: { width: 1280, height: 900 },
   });
   const page = ctx.pages()[0] || (await ctx.newPage());
+  const byId = new Map(); // dedupe by id, keep the longest (most descriptive) name
   try {
-    await page.goto(FEDERATION, { waitUntil: "domcontentloaded", timeout: 45000 });
-    // wait for Cloudflare to clear and the event links to render
-    let links = [];
-    for (let i = 0; i < 14; i++) {
-      await sleep(1500);
-      links = await page.evaluate(() =>
-        [...document.querySelectorAll('a[href*="/event/"]')].map((a) => {
-          const m = a.href.match(/\/\/([a-z0-9-]+\.)?smoothcomp\.com\/en\/event\/(\d+)/);
-          return m ? { id: m[2], name: (a.textContent || "").trim().replace(/\s+/g, " "),
-            tenant: (m[1] ? m[1].replace(/\.$/, "") + ".smoothcomp.com" : "smoothcomp.com") } : null;
-        }).filter(Boolean));
-      if (links.length) break;
-    }
-    // dedupe by id, keep the longest (most descriptive) name seen
-    const byId = new Map();
-    for (const e of links) {
-      const prev = byId.get(e.id);
-      if (!prev || e.name.length > prev.name.length) byId.set(e.id, e);
+    // The federation past-events listing is paginated (?page=N). Walk pages
+    // until one yields no events. Guard with a hard page cap.
+    for (let p = 1; p <= 30; p++) {
+      await page.goto(`${FEDERATION}?page=${p}`, { waitUntil: "domcontentloaded", timeout: 45000 }).catch(() => {});
+      let links = [];
+      for (let i = 0; i < 14; i++) { // wait for CF clear + event links to render
+        await sleep(1500);
+        links = await page.evaluate(() =>
+          [...document.querySelectorAll('a[href*="/event/"]')].map((a) => {
+            const m = a.href.match(/\/\/([a-z0-9-]+\.)?smoothcomp\.com\/en\/event\/(\d+)/);
+            return m ? { id: m[2], name: (a.textContent || "").trim().replace(/\s+/g, " "),
+              tenant: (m[1] ? m[1].replace(/\.$/, "") + ".smoothcomp.com" : "smoothcomp.com") } : null;
+          }).filter(Boolean));
+        if (links.length) break;
+      }
+      if (!links.length) break; // no events on this page -> past the last page
+      const before = byId.size;
+      for (const e of links) {
+        const prev = byId.get(e.id);
+        if (!prev || e.name.length > prev.name.length) byId.set(e.id, e);
+      }
+      if (byId.size === before) break; // page added nothing new -> stop (no infinite loop)
     }
     return [...byId.values()];
   } finally {
