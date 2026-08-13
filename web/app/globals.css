@@ -55,3 +55,18 @@ tbody tr:hover { background: var(--panel); }
 .delta.up { color: var(--win); } .delta.down { color: var(--loss); }
 .eloflow { color: var(--dim); font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
 .empty { color: var(--dim); padding: 20px 0; }
+
+/* Mobile: the 5-column table overflows narrow viewports. Drop the redundant
+   Matches column (Record already conveys activity), tighten padding, and let
+   long names/clubs wrap instead of forcing width. */
+th, td { overflow-wrap: anywhere; }
+@media (max-width: 560px) {
+  .wrap { padding: 20px 12px 56px; }
+  th, td { padding: 8px 7px; }
+  table { font-size: 14px; }
+  th:nth-child(5), td:nth-child(5) { display: none; } /* Matches */
+  .club { font-size: 11px; }
+  .athHead .big { font-size: 22px; }
+  .match { grid-template-columns: 58px 1fr auto; gap: 8px; }
+  .spark svg { width: 100%; max-width: 220px; }
+}
