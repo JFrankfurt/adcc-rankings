@@ -27,7 +27,7 @@ h1 { font-size: 22px; margin: 0 0 2px; }
 
 table { width: 100%; border-collapse: collapse; }
 th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); }
-th { color: var(--dim); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+th { color: var(--dim); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; font-weight: 600; white-space: nowrap; }
 tbody tr { cursor: pointer; }
 tbody tr:hover { background: var(--panel); }
 .rank { color: var(--dim); width: 44px; font-variant-numeric: tabular-nums; }
