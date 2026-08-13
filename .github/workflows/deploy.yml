@@ -28,16 +28,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Pin a stable npm (runner npm crashes on Node 24)
-        run: npm install -g npm@10.9.2
+      - name: Enable pnpm via corepack (runner npm crashes on this image)
+        run: |
+          corepack enable
+          corepack prepare pnpm@9.15.0 --activate
+          pnpm --version
       - name: Install deps
         working-directory: web
-        run: npm install --no-audit --no-fund
+        run: pnpm install --no-frozen-lockfile
       - name: Build static site
         working-directory: web
         env:
           BASE_PATH: /adcc-rankings
-        run: npm run build
+        run: pnpm run build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/out
