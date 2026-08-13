@@ -59,7 +59,10 @@ tbody tr:hover { background: var(--panel); }
 /* Mobile: the 5-column table overflows narrow viewports. Drop the redundant
    Matches column (Record already conveys activity), tighten padding, and let
    long names/clubs wrap instead of forcing width. */
-th, td { overflow-wrap: anywhere; }
+/* Only the athlete-name column may break long strings; numeric columns must
+   never wrap (a rank like 1091 was breaking into "10" / "91"). */
+td:nth-child(2) { overflow-wrap: anywhere; }
+.rank, .wl, .rating, .rd { white-space: nowrap; }
 @media (max-width: 560px) {
   .wrap { padding: 20px 12px 56px; }
   th, td { padding: 8px 7px; }
