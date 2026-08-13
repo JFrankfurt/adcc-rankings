@@ -1,5 +1,5 @@
 {
-  "_comment": "Events behind a hard Cloudflare fingerprint block that the automated browser cannot clear (permanent challenge loop, clicking does not resolve). Skipped by browser_pull to avoid 5-min timeouts. Pull manually from a real browser if ever needed.",
-  "22519": "ADCC West Coast Trials — CF hard block",
-  "22522": "ADCC East Coast Trials — CF hard block"
+  "_comment": "Events skipped by browser_pull. These Trials have NO bracket/result data on Smoothcomp (the site shows 'brackets not available' — results were never uploaded). Also behind a hard Cloudflare rule, but moot since there is nothing to pull.",
+  "22519": "ADCC West Coast Trials — no bracket data on Smoothcomp",
+  "22522": "ADCC East Coast Trials — no bracket data on Smoothcomp"
 }
