@@ -71,6 +71,17 @@ to pass Cloudflare (no cookies, no clicks). One command does the whole cycle:
 ./refresh.sh          # pull all ADCC events -> rebuild data.json -> export web/out/
 ```
 
+### Live site
+
+Deployed at **https://jfrankfurt.github.io/adcc-rankings/** (GitHub Pages).
+Every push to `main` that touches `web/**` triggers `.github/workflows/deploy.yml`,
+which builds the static site (with `BASE_PATH=/adcc-rankings`) and publishes it.
+CI never scrapes — it deploys the committed `web/public/data/data.json`. The Mac
+refresh regenerates that file and pushes it, which redeploys the site.
+
+Note: the workflow installs with **pnpm via corepack**, not npm — the current
+Ubuntu runner image crashes npm ("Exit handler never called") on install.
+
 ### Scheduled (macOS launchd)
 
 A weekly job (Sundays 03:00) runs `refresh.sh` automatically:
