@@ -94,7 +94,7 @@ async function login() {
                  : "could not confirm login; re-run `login` and finish signing in before pressing ENTER");
 }
 
-async function pullEvent(ctx, id, tenant = "adcc.smoothcomp.com") {
+async function pullEvent(ctx, id, tenant = "adcc.smoothcomp.com", knownName = "") {
   const dirPre = join(ROOT, "data/events", String(id));
   if (process.env.FORCE !== "1" && existsSync(join(dirPre, "brackets.json")) &&
       existsSync(join(dirPre, "render")) && readdirSync(join(dirPre, "render")).length > 0) {
@@ -134,11 +134,15 @@ async function pullEvent(ctx, id, tenant = "adcc.smoothcomp.com") {
   await page.goto(`${base}/schedule/brackets`, { waitUntil: "domcontentloaded" }).catch(() => {});
   await waitForClearance(page, base).catch(() => {});
 
-  let name = "", date = "";
-  try { const info = await pageJSON(page, `${base}/getInfoPanelsData`, "GET", base); name = info?.organizer?.name ? `${info.organizer.name} — event ${id}` : `event ${id}`; } catch {}
+  // prefer the federation-page name (accurate, e.g. "ADCC US Open - Atlanta");
+  // fall back to the info panel's organizer name only if none was passed.
+  let name = knownName;
+  if (!name) {
+    try { const info = await pageJSON(page, `${base}/getInfoPanelsData`, "GET", base); name = info?.organizer?.name ? `${info.organizer.name} — event ${id}` : `event ${id}`; } catch { name = `event ${id}`; }
+  }
   const est = list.map((b) => b.estimated_start).filter(Boolean).sort();
-  date = est.length ? String(est[0]).slice(0, 10) : new Date().toISOString().slice(0, 10);
-  writeFileSync(join(dir, "event.json"), JSON.stringify({ event_id: Number(id), name: name || `event ${id}`, date, ruleset: "nogi", tenant }));
+  const date = est.length ? String(est[0]).slice(0, 10) : new Date().toISOString().slice(0, 10);
+  writeFileSync(join(dir, "event.json"), JSON.stringify({ event_id: Number(id), name, date, ruleset: "nogi", tenant }));
 
   let ok = 0, bad = 0;
   for (const b of list) {
@@ -156,9 +160,9 @@ if (cmd === "login") {
 } else {
   const ctx = await open();
   if (cmd === "all") {
-    const { adcc } = await discoverAdcc(Number(arg2 || 20));
+    const adcc = await discoverAdcc();
     console.log(`pulling ${adcc.length} ADCC events…`);
-    for (const e of adcc) { try { await pullEvent(ctx, e.id, e.tenant); } catch (err) { console.error(`event ${e.id} FAILED: ${err.message}`); } }
+    for (const e of adcc) { try { await pullEvent(ctx, e.id, e.tenant, e.name); } catch (err) { console.error(`event ${e.id} FAILED: ${err.message}`); } }
   } else if (cmd) {
     await pullEvent(ctx, cmd, arg2 || "adcc.smoothcomp.com");
   } else {

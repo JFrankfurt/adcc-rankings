@@ -1,53 +1,54 @@
-// Discover ADCC Open event ids from Smoothcomp's PUBLIC past-events listing
-// (no auth needed — only per-event bracket data is gated). Prints a table of
-// candidate events to then pull with ingest/pull.mjs.
+// Discover ALL ADCC events from the authoritative federation past-events page
+// (federation 176 = ADCC). That page is on the CF-gated adcc tenant and renders
+// event links into the DOM, so we read them with a headless browser — the same
+// mechanism used for pulling. This replaces the old approach of scanning the
+// generic global past-events listing, which buried ADCC events across hundreds
+// of pages and only surfaced a handful.
 //
-//   node ingest/discover.mjs [maxPages=6]
-const UA = process.env.SC_UA || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36";
+//   node ingest/discover.mjs        # print the ADCC event table
+import { chromium } from "playwright";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 
-function walk(node, out) {
-  if (!node || typeof node !== "object") return;
-  if (Array.isArray(node)) { for (const x of node) walk(x, out); return; }
-  const url = node.url || node["@id"];
-  // ld+json ItemList entries carry the event URL (id + tenant subdomain) but no
-  // name; the tenant subdomain identifies the organizer (ADCC -> adcc.*).
-  const m = typeof url === "string" && url.match(/\/\/([a-z0-9-]+\.)?smoothcomp\.com\/en\/event\/(\d+)/);
-  if (m) {
-    const tenant = ((m[1] || "").replace(/\.$/, "")) ? m[1].replace(/\.$/, "") + ".smoothcomp.com" : "smoothcomp.com";
-    if (!out.has(m[2])) out.set(m[2], { id: m[2], name: node.name ? String(node.name).trim() : "", tenant });
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const PROFILE = join(ROOT, ".auth/sc-profile");
+const FEDERATION = "https://adcc.smoothcomp.com/en/federation/176/events/past";
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+export async function discoverAdcc() {
+  const ctx = await chromium.launchPersistentContext(PROFILE, {
+    headless: process.env.HEADLESS !== "0", viewport: { width: 1280, height: 900 },
+  });
+  const page = ctx.pages()[0] || (await ctx.newPage());
+  try {
+    await page.goto(FEDERATION, { waitUntil: "domcontentloaded", timeout: 45000 });
+    // wait for Cloudflare to clear and the event links to render
+    let links = [];
+    for (let i = 0; i < 14; i++) {
+      await sleep(1500);
+      links = await page.evaluate(() =>
+        [...document.querySelectorAll('a[href*="/event/"]')].map((a) => {
+          const m = a.href.match(/\/\/([a-z0-9-]+\.)?smoothcomp\.com\/en\/event\/(\d+)/);
+          return m ? { id: m[2], name: (a.textContent || "").trim().replace(/\s+/g, " "),
+            tenant: (m[1] ? m[1].replace(/\.$/, "") + ".smoothcomp.com" : "smoothcomp.com") } : null;
+        }).filter(Boolean));
+      if (links.length) break;
+    }
+    // dedupe by id, keep the longest (most descriptive) name seen
+    const byId = new Map();
+    for (const e of links) {
+      const prev = byId.get(e.id);
+      if (!prev || e.name.length > prev.name.length) byId.set(e.id, e);
+    }
+    return [...byId.values()];
+  } finally {
+    await ctx.close();
   }
-  for (const v of Object.values(node)) walk(v, out);
 }
 
-export function extractEvents(html) {
-  const found = new Map();
-  const re = /<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi;
-  for (const m of html.matchAll(re)) {
-    try { walk(JSON.parse(m[1]), found); } catch { /* skip malformed block */ }
-  }
-  return [...found.values()];
-}
-
-// Scan the public past-events listing and return events on an ADCC tenant.
-export async function discoverAdcc(maxPages = 20) {
-  const all = new Map();
-  for (let p = 1; p <= maxPages; p++) {
-    const res = await fetch(`https://smoothcomp.com/en/events/past?page=${p}`, { headers: { "user-agent": UA } });
-    if (!res.ok) break;
-    for (const e of extractEvents(await res.text())) all.set(e.id, e);
-  }
-  return {
-    total: all.size,
-    adcc: [...all.values()].filter((e) => /adcc/i.test(e.tenant) || /adcc/i.test(e.name)),
-  };
-}
-
-// CLI: `node ingest/discover.mjs [maxPages]`
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const maxPages = Number(process.argv[2] || 20);
-  const { total, adcc } = await discoverAdcc(maxPages);
-  console.log(`scanned ${maxPages} pages · ${total} past events · ${adcc.length} on an ADCC tenant:\n`);
-  for (const e of adcc) console.log(`  ${e.id}\t${e.tenant}\t${e.name || "(name at pull time)"}`);
-  console.log(`\nPull all with a logged-in browser:  node ingest/browser_pull.mjs all`);
-  if (!adcc.length) console.log(`(no ADCC-tenant events found; try more pages: node ingest/discover.mjs 40)`);
+  const adcc = await discoverAdcc();
+  console.log(`ADCC federation past events: ${adcc.length}\n`);
+  for (const e of adcc) console.log(`  ${e.id}\t${e.tenant}\t${e.name}`);
+  console.log(`\nPull all:  node ingest/browser_pull.mjs all`);
 }

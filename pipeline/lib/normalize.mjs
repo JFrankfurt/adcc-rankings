@@ -15,7 +15,11 @@ function parseDivision(name) {
   return { gender, age, level, weight, type };
 }
 
-const isAdult = (age) => /^adult/i.test(age); // excludes Boys/Girls/Master
+// Adult divisions across EN/PT/ES labels ("Adult", "Adults", "Adulto/a/s").
+// Exclude youth (Boys/Girls/Kids/Juvenil/Infantil/Teen) and Masters/veterans —
+// they never face adults, so cross-age ratings are not comparable.
+const YOUTH_MASTER = /boy|girl|kid|juven|infan|mirim|teen|master|veteran|senior|master?s?\s*\d/i;
+const isAdult = (age) => /adult/i.test(age) && !YOUTH_MASTER.test(age);
 const DIRTY = new Set(["walkover", "disqualification", "dq", "wo"]);
 
 // Pull the two competitors + winner + method out of one match object.
@@ -68,7 +72,9 @@ function loadParticipants(dir) {
       if (rg.user_id && !book.has(rg.user_id)) {
         book.set(rg.user_id, {
           name: `${rg.firstname || ""} ${rg.lastname || ""}`.trim() || `#${rg.user_id}`,
-          club: rg.club_name || rg.club || "",
+          // Smoothcomp participants use camelCase clubName; fall back to
+          // team/affiliation, then the older snake_case just in case.
+          club: rg.clubName || rg.teamName || rg.affiliationName || rg.club_name || rg.club || "",
           country: (rg.cn || rg.country || "").toUpperCase(),
         });
       }
@@ -102,9 +108,18 @@ export function normalizeEvent(dir) {
     for (const m of raw) {
       const parsed = readMatch(m, reg2user);
       if (!parsed) continue;
-      // fold in athlete book entries seen inline (covers ids missing from participants)
-      for (const [id, nm] of parsed.names) if (id && !book.has(id))
-        book.set(id, { name: nm || `#${id}`, club: parsed.clubs.get(id) || "", country: parsed.countries.get(id) || "" });
+      // fold in athlete book entries from match seats: create for ids missing
+      // from participants, and backfill a club when the participants entry had
+      // none (the render seat carries the club/team string directly).
+      for (const [id, nm] of parsed.names) {
+        if (!id) continue;
+        const seatClub = parsed.clubs.get(id) || "";
+        if (!book.has(id)) {
+          book.set(id, { name: nm || `#${id}`, club: seatClub, country: parsed.countries.get(id) || "" });
+        } else if (seatClub && !book.get(id).club) {
+          book.get(id).club = seatClub;
+        }
+      }
       matches.push({
         event_id: event.event_id, event_name: event.name, date: event.date,
         bracket_id: bracketId, division: d0.raw, division_type: d0.type,
