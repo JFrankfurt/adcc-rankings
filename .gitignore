@@ -1,0 +1,26 @@
+# secrets / sessions — NEVER commit
+.auth/
+*.cookie
+.env
+
+# deps & build
+node_modules/
+web/.next/
+web/out/
+__pycache__/
+*.pyc
+
+# local pipeline run artifacts (not needed to build the site)
+out/
+results/
+data/recon/
+
+# data.json IS committed — it is the only input the Pages build needs, and CI
+# cannot re-scrape (no browser/Cloudflare in the runner). The Mac refresh
+# regenerates + commits it; the Action just builds the static site from it.
+# The bulky raw pulls stay out of the repo.
+data/raw/
+data/events/*/render/
+data/events/*/participants.json
+data/*.csv
+data/matches_adult*.csv

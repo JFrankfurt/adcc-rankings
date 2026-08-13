@@ -1,0 +1,16 @@
+{
+  "name": "adcc-rankings-ingest",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "login": "node ingest/browser_pull.mjs login",
+    "pull": "node ingest/browser_pull.mjs",
+    "pull:all": "node ingest/browser_pull.mjs all",
+    "discover": "node ingest/discover.mjs",
+    "build": "node pipeline/build.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}
