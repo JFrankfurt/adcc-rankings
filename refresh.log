@@ -1,0 +1,207 @@
+===== refresh 2026-08-17 12:09:51 =====
+[1/3] pulling ADCC events…
+event 22522: skip-listed (ADCC East Coast Trials — no bracket data on Smoothcomp)
+event 22519: skip-listed (ADCC West Coast Trials — no bracket data on Smoothcomp)
+pulling 94 ADCC events…
+event 22525: already pulled — skipping (FORCE=1 to re-pull)
+event 28478: already pulled — skipping (FORCE=1 to re-pull)
+event 25482: already pulled — skipping (FORCE=1 to re-pull)
+event 31049: already pulled — skipping (FORCE=1 to re-pull)
+event 24546: already pulled — skipping (FORCE=1 to re-pull)
+event 22526: already pulled — skipping (FORCE=1 to re-pull)
+event 26045: already pulled — skipping (FORCE=1 to re-pull)
+event 22523: already pulled — skipping (FORCE=1 to re-pull)
+event 28468: already pulled — skipping (FORCE=1 to re-pull)
+event 26046: already pulled — skipping (FORCE=1 to re-pull)
+event 33879: already pulled — skipping (FORCE=1 to re-pull)
+event 30665: already pulled — skipping (FORCE=1 to re-pull)
+event 30322: already pulled — skipping (FORCE=1 to re-pull)
+event 27420: already pulled — skipping (FORCE=1 to re-pull)
+event 25479: already pulled — skipping (FORCE=1 to re-pull)
+event 25395: already pulled — skipping (FORCE=1 to re-pull)
+event 31472: already pulled — skipping (FORCE=1 to re-pull)
+event 27176: already pulled — skipping (FORCE=1 to re-pull)
+event 28183: already pulled — skipping (FORCE=1 to re-pull)
+event 25393: already pulled — skipping (FORCE=1 to re-pull)
+event 25257: already pulled — skipping (FORCE=1 to re-pull)
+event 25720: already pulled — skipping (FORCE=1 to re-pull)
+event 29017: already pulled — skipping (FORCE=1 to re-pull)
+event 29015: already pulled — skipping (FORCE=1 to re-pull)
+event 25254: already pulled — skipping (FORCE=1 to re-pull)
+event 28273: already pulled — skipping (FORCE=1 to re-pull)
+event 31750: already pulled — skipping (FORCE=1 to re-pull)
+event 25256: already pulled — skipping (FORCE=1 to re-pull)
+event 25252: already pulled — skipping (FORCE=1 to re-pull)
+event 31380: already pulled — skipping (FORCE=1 to re-pull)
+event 21742: already pulled — skipping (FORCE=1 to re-pull)
+event 25982: already pulled — skipping (FORCE=1 to re-pull)
+event 28244: already pulled — skipping (FORCE=1 to re-pull)
+event 28232: already pulled — skipping (FORCE=1 to re-pull)
+event 14816: already pulled — skipping (FORCE=1 to re-pull)
+event 29072: already pulled — skipping (FORCE=1 to re-pull)
+event 25258: already pulled — skipping (FORCE=1 to re-pull)
+event 29066: already pulled — skipping (FORCE=1 to re-pull)
+event 22600: already pulled — skipping (FORCE=1 to re-pull)
+event 15887: already pulled — skipping (FORCE=1 to re-pull)
+event 14648: already pulled — skipping (FORCE=1 to re-pull)
+event 19276: already pulled — skipping (FORCE=1 to re-pull)
+event 14782: already pulled — skipping (FORCE=1 to re-pull)
+event 18527: already pulled — skipping (FORCE=1 to re-pull)
+event 20057: already pulled — skipping (FORCE=1 to re-pull)
+event 16662: already pulled — skipping (FORCE=1 to re-pull)
+event 19072: already pulled — skipping (FORCE=1 to re-pull)
+event 19919: already pulled — skipping (FORCE=1 to re-pull)
+event 19886: already pulled — skipping (FORCE=1 to re-pull)
+event 16660: already pulled — skipping (FORCE=1 to re-pull)
+event 19918: already pulled — skipping (FORCE=1 to re-pull)
+event 19275: already pulled — skipping (FORCE=1 to re-pull)
+event 24306: already pulled — skipping (FORCE=1 to re-pull)
+event 14700: already pulled — skipping (FORCE=1 to re-pull)
+event 16610: already pulled — skipping (FORCE=1 to re-pull)
+event 18628: already pulled — skipping (FORCE=1 to re-pull)
+  participants POST blocked (CF) — proceeding without it (identity via profile_link + name match)
+event 14788: 0 brackets, 0 participants, render 0 ok / 0 fail
+event 14786: already pulled — skipping (FORCE=1 to re-pull)
+event 22516: already pulled — skipping (FORCE=1 to re-pull)
+event 17198: already pulled — skipping (FORCE=1 to re-pull)
+event 19885: already pulled — skipping (FORCE=1 to re-pull)
+event 17091: already pulled — skipping (FORCE=1 to re-pull)
+event 19883: already pulled — skipping (FORCE=1 to re-pull)
+event 20054: already pulled — skipping (FORCE=1 to re-pull)
+event 23838: already pulled — skipping (FORCE=1 to re-pull)
+event 17844: already pulled — skipping (FORCE=1 to re-pull)
+event 20699: already pulled — skipping (FORCE=1 to re-pull)
+event 21741: already pulled — skipping (FORCE=1 to re-pull)
+event 17278: already pulled — skipping (FORCE=1 to re-pull)
+event 14815: already pulled — skipping (FORCE=1 to re-pull)
+event 19790: already pulled — skipping (FORCE=1 to re-pull)
+event 20721: already pulled — skipping (FORCE=1 to re-pull)
+event 19216: already pulled — skipping (FORCE=1 to re-pull)
+event 17265: already pulled — skipping (FORCE=1 to re-pull)
+event 21740: already pulled — skipping (FORCE=1 to re-pull)
+event 19511: already pulled — skipping (FORCE=1 to re-pull)
+event 19788: already pulled — skipping (FORCE=1 to re-pull)
+event 19787: already pulled — skipping (FORCE=1 to re-pull)
+event 10748: already pulled — skipping (FORCE=1 to re-pull)
+event 12933: already pulled — skipping (FORCE=1 to re-pull)
+event 12692: already pulled — skipping (FORCE=1 to re-pull)
+event 13336: already pulled — skipping (FORCE=1 to re-pull)
+event 11268: already pulled — skipping (FORCE=1 to re-pull)
+event 11127: already pulled — skipping (FORCE=1 to re-pull)
+event 13678: already pulled — skipping (FORCE=1 to re-pull)
+event 11768: already pulled — skipping (FORCE=1 to re-pull)
+event 11951: already pulled — skipping (FORCE=1 to re-pull)
+event 12785: already pulled — skipping (FORCE=1 to re-pull)
+event 11067: already pulled — skipping (FORCE=1 to re-pull)
+event 10767: already pulled — skipping (FORCE=1 to re-pull)
+event 14244: already pulled — skipping (FORCE=1 to re-pull)
+event 12753: already pulled — skipping (FORCE=1 to re-pull)
+event 11607 FAILED: Cloudflare did not clear (try HEADLESS=0 to solve interactively)
+event 11765: already pulled — skipping (FORCE=1 to re-pull)
+done. Now run: node pipeline/build.mjs
+[2/3] building ranking data…
+event 10748 (ADCC Canada Open 2023 - Ottawa): 14 adult matches
+event 10767 (ADCC US Open - Costa Mesa, CA): 0 adult matches
+event 11067 (ADCC Mexico Open - Guadalajara): 17 adult matches
+event 11127 (ADCC US Open - Denver, CO): 0 adult matches
+event 11268 (ADCC US Open - Dallas, TX): 0 adult matches
+event 11765 (ADCC Mexico Open - Tijuana): 0 adult matches
+event 11768 (ADCC US Open - Scottsdale, AZ): 0 adult matches
+event 11951 (ADCC Canada Open 2023 - Vancouver): 0 adult matches
+event 12692 (ADCC US Open - Chicago, IL): 761 adult matches
+event 12753 (ADCC Brazil Open - Natal/RN): 4 adult matches
+event 12785 (ADCC Mexico Open - Mexico City): 19 adult matches
+event 12933 (ADCC US Open - Atlantic City, NJ): 283 adult matches
+event 13336 (ADCC US Open - Orlando, FL): 971 adult matches
+event 13678 (ADCC US Open - Austin, TX): 871 adult matches
+event 14244 (ADCC US Open - Long Beach, CA): 1007 adult matches
+event 14648 (ADCC CANADA OPEN 2024 - Toronto Edition): 10 adult matches
+event 14700 (ADCC MEXICO - Monterrey): 18 adult matches
+event 14782 (ADCC US Open - Atlantic City, NJ): 968 adult matches
+event 14786 (ADCC US Open - Las Vegas, NV): 480 adult matches
+event 14788 (ADCC North American Trials 2 (West Coast Trials)): 0 adult matches
+event 14815 (ADCC Brazil - São Paulo Open 2nd Edition): 17 adult matches
+event 14816 (ADCC Brazil Open - Itapema): 3 adult matches
+event 15887 (ADCC CANADA OPEN 2024 - MONTREAL Edition): 9 adult matches
+event 16610 (ADCC US Open - Phoenix, AZ): 635 adult matches
+event 16660 (ADCC US Open - Dallas, TX): 1030 adult matches
+event 16662 (ADCC US Open - Orlando, FL): 1053 adult matches
+event 17091 (ADCC Mexico Open - Guadalajara): 19 adult matches
+event 17198 (ADCC US Open - Las Vegas, NV): 2 adult matches
+event 17265 (ADCC Brazil Open - Balneário Camboriú): 3 adult matches
+event 17278 (ADCC Brazil Open - São Paulo 3rd Edition): 4 adult matches
+event 17844 (ADCC Latinoamérica - Peru Edition): 3 adult matches
+event 18527 (ADCC US Open - Chicago, IL): 636 adult matches
+event 18628 (ADCC CANADA OPEN - 2024 VANCOUVER): 13 adult matches
+event 19072 (ADCC US Open - Miami, FL): 635 adult matches
+event 19216 (ADCC Mexico Open - MEXICO CITY 2024): 4 adult matches
+event 19275 (ADCC US Open - Austin, TX): 323 adult matches
+event 19276 (ADCC CANADA OPEN NIAGARA 2024): 15 adult matches
+event 19511 (ADCC Brazil Open - Balneário Camboriú 2nd Edition): 9 adult matches
+event 19787 (ADCC Latinoamérica - Buenos Aires): 0 adult matches
+event 19788 (ADCC Latinoamérica - Santiago): 0 adult matches
+event 19790 (ADCC Brazil Open - São Paulo): 6 adult matches
+event 19883 (ADCC US Open - San Diego, CA): 694 adult matches
+event 19885 (ADCC US Open - Portland, OR): 602 adult matches
+event 19886 (ADCC US Open - Oklahoma City, OK): 615 adult matches
+event 19918 (ADCC US Open - Dallas, TX): 863 adult matches
+event 19919 (ADCC US Open - Miami, FL): 744 adult matches
+event 20054 (ADCC US Open - San Jose, CA): 539 adult matches
+event 20057 (ADCC US Open - Atlanta, GA): 986 adult matches
+event 20699 (ADCC Brazil Open - Natal): 2 adult matches
+event 20721 (ADCC CANADA TORONTO OPEN 2025): 6 adult matches
+event 21740 (ADCC Brazil Open - Balneário Camboriú): 3 adult matches
+event 21741 (ADCC Brazil Open - Petrópolis): 2 adult matches
+event 21742 (ADCC Brazil Open - São Paulo): 1 adult matches
+event 22516 (ADCC US Open - Nationals (Las Vegas, NV)): 609 adult matches
+event 22523 (ADCC US Open - Orlando, FL): 390 adult matches
+event 22525 (ADCC US Open - New Jersey): 697 adult matches
+event 22526 (ADCC US Open - Louisville, KY): 809 adult matches
+event 22600 (ADCC CANADA MONTREAL OPEN 2025): 18 adult matches
+event 23838 (ADCC Latinoamérica - Guayaquil): 2 adult matches
+event 24306 (ADCC - Monterrey): 9 adult matches
+event 24546 (ADCC US Open - Charlotte, NC): 532 adult matches
+event 25252 (ADCC Brazil Open - Teresópolis): 4 adult matches
+event 25254 (ADCC Brazilian Nationals - Indaiatuba): 0 adult matches
+event 25256 (ADCC Latinoamérica - Assunción): 4 adult matches
+event 25257 (ADCC Latinoamérica - Lima): 6 adult matches
+event 25258 (ADCC South American - Buenos Aires): 3 adult matches
+event 25393 (ADCC US Open - San Diego, CA): 763 adult matches
+event 25395 (ADCC US Open - Portland, OR): 559 adult matches
+event 25479 (ADCC CANADA VANCOUVER OPEN 2025): 26 adult matches
+event 25482 (ADCC CANADA NIAGARA OPEN): 435 adult matches
+event 25720 (ADCC Brazil Open - Brasília): 2 adult matches
+event 25982 (ADCC Brazil Open - Macaé): 5 adult matches
+event 26045 (ADCC US Open - Atlanta, GA): 901 adult matches
+event 26046 (ADCC US Open - Dallas-Fort Worth, TX): 720 adult matches
+event 27176 (ADCC Mexico Open - Guadalajara 2025): 26 adult matches
+event 27420 (ADCC US Open - Phoenix, AZ): 510 adult matches
+event 28183 (ADCC US Open - Los Angeles): 432 adult matches
+event 28232 (ADCC Trials - South American (Rio de Janeiro)): 0 adult matches
+event 28244 (ADCC Brazil Open - Rio de Janeiro): 7 adult matches
+event 28273 (ADCC Trials - South American (Indaiatuba)): 0 adult matches
+event 28468 (ADCC US Open - Miami, FL): 766 adult matches
+event 28478 (ADCC CANADA OPEN TORONTO 2026): 598 adult matches
+event 29015 (ADCC Brazil Open - Indaiatuba): 1 adult matches
+event 29017 (ADCC Trials Youth - South American (Indaiatuba)): 0 adult matches
+event 29066 (ADCC Latinoamérica Open - Buenos Aires): 7 adult matches
+event 29072 (ADCC Latinoamérica Open - Santiago): 4 adult matches
+event 30322 (ADCC CANADA CALGARY OPEN 2026): 275 adult matches
+event 30665 (ADCC US Open - Austin, TX): 344 adult matches
+event 31049 (ADCC CANADA WINDSOR OPEN): 305 adult matches
+event 31380 (ADCC Brazil Open - Petrópolis): 8 adult matches
+event 31472 (ADCC Mexico City 2026): 695 adult matches
+event 31750 (ADCC Brazil Open - Indaiatuba): 5 adult matches
+event 33879 (YOUTH WORLDS): 0 adult matches
+identity: 11927 name keys, merged 1390 name-fallback slots to numeric ids
+
+wrote /Users/jordanfrankfurt/code/jfrankfurt/rankings/web/public/data/data.json
+athletes: 9672 | eligible (ranked): 2541 | rated matches: 22737
+top 5: Dorian Olivarez 2483 · Michael Sainz 2353 · Richard Alarcon 2322 · Ian Morken 2302 · Elder Cruz 2299
+[2.5/3] (optional) local static export via pnpm…
+local export ok -> web/out/
+[3/3] publishing data.json…
+error: cannot run gpg: No such file or directory
+error: gpg failed to sign the data:
+(no gpg output)
+fatal: failed to write commit object
